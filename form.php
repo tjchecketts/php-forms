@@ -1,5 +1,26 @@
 <?php 
-  
+  if (isset($_POST['submit'])) {
+    printf(
+      'Your Inputs:
+      <br>Email - %s,
+      <br>User Name - %s,
+      <br>Gender - %s,
+      <br>Color - %s,
+      <br>Cars - %s,
+      <br>Comments - %s,
+      <br>Terms & Conditions - %s
+      <br>
+      <br>
+      ',
+        $_POST['email'],
+        $_POST['name'],
+        $_POST['gender'],
+        $_POST['color'],
+        implode(' ', $_POST['cars']),
+        $_POST['comments'],
+        $_POST['terms']
+    );
+  }
 ?>
 <form method='post' action=''>
   Email: <br>
