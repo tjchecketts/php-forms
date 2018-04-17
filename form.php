@@ -1,25 +1,49 @@
 <?php 
   if (isset($_POST['submit'])) {
-    printf(
-      'Your Inputs:
-      <br>Email - %s,
-      <br>User Name - %s,
-      <br>Gender - %s,
-      <br>Color - %s,
-      <br>Cars - %s,
-      <br>Comments - %s,
-      <br>Terms & Conditions - %s
-      <br>
-      <br>
-      ',
-        $_POST['email'],
-        $_POST['name'],
-        $_POST['gender'],
-        $_POST['color'],
-        implode(' ', $_POST['cars']),
-        $_POST['comments'],
-        $_POST['terms']
-    );
+    $ok = true;
+
+    if (
+      !isset($_POST['email']) 
+      || $_POST['email'] === '' 
+      || !isset($_POST['name']) 
+      || $_POST['name'] === '' 
+      || !isset($_POST['gender']) 
+      || $_POST['gender'] === '' 
+      || !isset($_POST['color']) 
+      || $_POST['color'] === '' 
+      || !isset($_POST['cars']) 
+      || !is_array($_POST['cars']) 
+      || count($_POST['cars']) === 0 
+      || !isset($_POST['comments']) 
+      || $_POST['comments'] === '' 
+      || !isset($_POST['terms']) 
+      || $_POST['terms'] === '' 
+    ) {
+      $ok = false;
+    }
+
+    if ($ok) {
+      printf(
+        'Your Inputs:
+        <br>Email - %s
+        <br>User Name - %s
+        <br>Gender - %s
+        <br>Color - %s
+        <br>Cars - %s
+        <br>Comments - %s
+        <br>Terms & Conditions - %s
+        <br>
+        <br>
+        ',
+          htmlspecialchars($_POST['email'], ENT_QUOTES),
+          htmlspecialchars($_POST['name'], ENT_QUOTES),
+          htmlspecialchars($_POST['gender'], ENT_QUOTES),
+          htmlspecialchars($_POST['color'], ENT_QUOTES),
+          htmlspecialchars(implode(' ', $_POST['cars']), ENT_QUOTES),
+          htmlspecialchars($_POST['comments'], ENT_QUOTES),
+          htmlspecialchars($_POST['terms'], ENT_QUOTES)
+      );
+    }
   }
 ?>
 <form method='post' action=''>
@@ -33,6 +57,7 @@
     <input type="radio" name="gender" value="other"> Other<br>
   Favorite color: <br>
     <select name='color'>
+      <option value=''>Select Color</option>
       <option value='#f00'>Red</option>
       <option value='#0f0'>Green</option>
       <option value='#00f'>Blue</option>
